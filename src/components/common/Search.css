@@ -1,0 +1,25 @@
+.Search {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.SearchLoading {
+    width: 400px;
+    margin: auto;
+    text-align: end;
+    position: relative;
+    bottom: 32px;
+    padding-right: 5px;
+}
+
+.spinner-border {
+    width: 1.6rem;
+    height: 1.6rem;
+
+}
+
+.input-group {
+    margin: auto;
+    width: 400px;
+
+}

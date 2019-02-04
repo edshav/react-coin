@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Search from './Search';
 import './Header.css'
 
 const Header = () => {
@@ -8,6 +9,7 @@ const Header = () => {
       <Link to="/" >
         <h1><span className="Logo badge badge-pill badge-dark">REACT COIN</span></h1>
       </Link>
+      <Search />
     </div>
   );
 };

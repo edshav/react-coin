@@ -70,7 +70,11 @@ class Table extends Component {
 
     // render only loading component if loading state is set to true
     if (loading) {
-      return <Loading />;
+      return (
+        <div className="mt-5">
+          <Loading />
+        </div>
+        );
     }
 
     // render only error message, if error occurred while fetching data

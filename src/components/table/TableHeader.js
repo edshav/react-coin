@@ -2,7 +2,7 @@ import React from 'react';
 
 const TableHeader = () => {
   return (
-    <thead>
+    <thead className="TableHeader">
       <tr>
         <th scope="col">Coin</th>
         <th scope="col">Price</th>

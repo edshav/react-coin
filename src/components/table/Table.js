@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router-dom";
 import UdiliaService from '../../services/UdiliaService';
 import TableHeader from './TableHeader';
 import Row from './Row';
 import Loading from "../common/Loading";
 import Pagination from './Pagination';
+import Error from "../common/Error";
+import './Table.css'
 
 class Table extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Table extends Component {
 
     const udiliaService = new UdiliaService();
 
-    udiliaService.getData(page)
+    udiliaService.getTable(page)
       .then((data) => {
 
         const { currencies, totalPages } = data;
@@ -72,11 +75,7 @@ class Table extends Component {
 
     // render only error message, if error occurred while fetching data
     if (error) {
-      return (
-        <div className="alert alert-danger text-center" role="alert">
-          {error}
-        </div>
-      );
+      return <Error error={error}/>;
     }
 
     const rows = currencies.map((coin) => {
@@ -90,7 +89,7 @@ class Table extends Component {
     });
 
     return (
-      <div>
+      <div className="Table">
         <table className="table table-primary table-hover">
           <TableHeader />
           <tbody>
@@ -112,4 +111,4 @@ Table.propTypes = {
 };
 
 
-export default Table;
+export default withRouter(Table);

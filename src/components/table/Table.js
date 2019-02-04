@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import UdiliaService from '../../services/UdiliaService';
 import TableHeader from './TableHeader';
 import Row from './Row';
-import UdiliaService from '../../services/UdiliaService';
 import Loading from "../common/Loading";
 import Pagination from './Pagination';
-
 
 class Table extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Table extends Component {
     };
     this.handlePagination = this.handlePagination.bind(this);
     this.fetchData = this.fetchData.bind(this);
+    this.routing = this.routing.bind(this);
   }
 
   fetchData() {
@@ -56,6 +57,10 @@ class Table extends Component {
     this.fetchData();
   }
 
+  routing(path) {
+    this.props.history.push(`/currency/${path}`);
+  }
+
   render() {
 
     const {loading, error, currencies, page, totalPages } = this.state;
@@ -76,7 +81,11 @@ class Table extends Component {
 
     const rows = currencies.map((coin) => {
       return (
-        <Row key={coin.id} coin={coin}/>
+        <Row
+          key={coin.id}
+          coin={coin}
+          routing={() => this.routing(coin.id)}
+        />
       )
     });
 
@@ -97,5 +106,10 @@ class Table extends Component {
     );
   }
 }
+
+Table.propTypes = {
+  history: PropTypes.object.isRequired,
+};
+
 
 export default Table;

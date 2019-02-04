@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Row = (props) => {
 
@@ -22,6 +23,10 @@ const Row = (props) => {
       {renderPercentChange24h(percentChange24h)}
     </tr>
   );
+};
+
+Row.propTypes = {
+  coin: PropTypes.object.isRequired,
 };
 
 export default Row;

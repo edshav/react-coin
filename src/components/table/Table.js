@@ -40,14 +40,16 @@ class Table extends Component {
 
     // render only loading component if loading state is set to true
     if (loading) {
-      return <Loading />
+      return <Loading />;
     }
 
     // render only error message, if error occurred while fetching data
     if (error) {
-      return (<div className="alert alert-danger text-center" role="alert">
-        {error}
-      </div>)
+      return (
+        <div className="alert alert-danger text-center" role="alert">
+          {error}
+        </div>
+      );
     }
 
     const rows = currencies.map((coin) => {

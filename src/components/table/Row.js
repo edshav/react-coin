@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import renderPercentChange24h from '../../services/Render24hChange';
 
 const Row = (props) => {
 
@@ -7,20 +8,11 @@ const Row = (props) => {
 
   const { routing } = props;
 
-  const renderPercentChange24h = (percent) => {
-    if (percent > 0) {
-      return (<td className="text-success">{percent}% &uarr;</td>)
-    } else if (percent < 0) {
-      return (<td className="text-danger">{percent}% &darr;</td>)
-    } else {
-      return (<td>{percent}%</td>)
-    }
-  };
 
   const padding = 'pr-' + (5 - ('' + rank).length);
 
   return (
-    <tr onClick={routing}>
+    <tr className="Row" onClick={routing}>
       <td><span className={padding}>{rank}</span><span className="font-weight-bold">{name}</span></td>
       <td>${price}</td>
       <td>${marketCap}</td>

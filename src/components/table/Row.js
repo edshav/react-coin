@@ -15,9 +15,11 @@ const Row = (props) => {
     }
   };
 
+  const padding = 'pr-' + (5 - ('' + rank).length);
+
   return (
     <tr>
-      <th scope="row"><span>{rank}</span><span>{name}</span></th>
+      <td><span className={padding}>{rank}</span><span className="font-weight-bold">{name}</span></td>
       <td>${price}</td>
       <td>${marketCap}</td>
       {renderPercentChange24h(percentChange24h)}

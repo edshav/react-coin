@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TableHeader from './TableHeader';
 import Row from './Row';
 import UdiliaService from '../../services/UdiliaService';
+import Loading from "../common/Loading";
 
 
 class Table extends Component {
@@ -34,11 +35,21 @@ class Table extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <div>Loading...</div>
+
+    const {loading, error, currencies } = this.state;
+
+    // render only loading component if loading state is set to true
+    if (loading) {
+      return <Loading />
     }
 
-    const { currencies } = this.state;
+    // render only error message, if error occurred while fetching data
+    if (error) {
+      return (<div className="alert alert-danger text-center" role="alert">
+        {error}
+      </div>)
+    }
+
     const rows = currencies.map((coin) => {
       return (
         <Row key={coin.id} coin={coin}/>
@@ -46,7 +57,7 @@ class Table extends Component {
     });
 
     return (
-      <table className="table table-dark table-hover">
+      <table className="table table-light table-hover">
         <TableHeader />
         <tbody>
         {rows}

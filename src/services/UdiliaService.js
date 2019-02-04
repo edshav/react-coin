@@ -4,8 +4,8 @@ export default class UdiliaService {
 
   }
 
-  getData() {
-    return fetch(`${this.apiRoot}/cryptocurrencies?page=1&perPage=20`)
+  getData(page) {
+    return fetch(`${this.apiRoot}/cryptocurrencies?page=${page}&perPage=20`)
       .then(response => {
         return response.json().then(json => {
           return response.ok ? json : Promise.reject(json);

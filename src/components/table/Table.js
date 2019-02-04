@@ -3,6 +3,7 @@ import TableHeader from './TableHeader';
 import Row from './Row';
 import UdiliaService from '../../services/UdiliaService';
 import Loading from "../common/Loading";
+import Pagination from './Pagination';
 
 
 class Table extends Component {
@@ -12,17 +13,28 @@ class Table extends Component {
       loading: false,
       currencies: [],
       error: null,
+      totalPages: 0,
+      page: 1,
     };
+    this.handlePagination = this.handlePagination.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
-  componentDidMount() {
+  fetchData() {
     this.setState({ loading: true });
 
+    const { page } = this.state;
+
     const udiliaService = new UdiliaService();
-    udiliaService.getData()
+
+    udiliaService.getData(page)
       .then((data) => {
+
+        const { currencies, totalPages } = data;
+
         this.setState({
-          currencies: data.currencies,
+          totalPages,
+          currencies,
           loading: false,
         })
       })
@@ -34,9 +46,19 @@ class Table extends Component {
       });
   }
 
+  handlePagination(direction) {
+    this.setState({
+      page: this.state.page + direction,
+    }, () => this.fetchData());
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
   render() {
 
-    const {loading, error, currencies } = this.state;
+    const {loading, error, currencies, page, totalPages } = this.state;
 
     // render only loading component if loading state is set to true
     if (loading) {
@@ -59,12 +81,19 @@ class Table extends Component {
     });
 
     return (
-      <table className="table table-light table-hover">
-        <TableHeader />
-        <tbody>
-        {rows}
-        </tbody>
-      </table>
+      <div>
+        <table className="table table-primary table-hover">
+          <TableHeader />
+          <tbody>
+          {rows}
+          </tbody>
+        </table>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          handlePagination={this.handlePagination}
+        />
+      </div>
     );
   }
 }
